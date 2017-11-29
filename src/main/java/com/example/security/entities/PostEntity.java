@@ -18,17 +18,7 @@ import java.util.List;
 public class PostEntity {
 
     private String author;
-    private String text;
-    private String date;
-    private String id;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String content;
 
     public String getAuthor() {
         return author;
@@ -38,19 +28,13 @@ public class PostEntity {
         this.author = author;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.content = text;
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 }

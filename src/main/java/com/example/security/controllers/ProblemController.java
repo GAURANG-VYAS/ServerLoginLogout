@@ -4,6 +4,7 @@ import com.example.security.entities.AppUserEntity;
 import com.example.security.entities.PostEntity;
 import com.example.security.repositories.AppUserRepository;
 import com.example.security.repositories.ProblemRepository;
+import com.example.security.repositories.ThreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -21,18 +22,26 @@ import java.util.Collections;
 @RestController
 public class ProblemController {
     private ProblemRepository problem;
+    private ThreadRepository threadRepo;
 
     @Autowired
     MongoOperations mongoOperations;
 
 
-    public ProblemController(ProblemRepository problem) { this.problem = problem;}
+    public ProblemController(ProblemRepository problem, ThreadRepository threadRepo) { this.problem = problem; this.threadRepo = threadRepo;}
 
-    @GetMapping(value = "/posts/{id}")
-    public ArrayList<PostEntity> getPosts(@PathVariable(value="id") String id){
+    @GetMapping(value = "/thread/{id}")
+    public ArrayList<String> getThreads(@PathVariable(value="id") String id){
         ProblemEntity prob = problem.findFirstById(id);
-        if(prob!=null)
-            return prob.getPosts();
+        ArrayList<String> threadList = prob.getThreads();
+//        ArrayList<String> threadTitle = new ArrayList<String>();
+//        for(int i=0;i<threadList.size();i++)
+//        {
+//            threadTitle.add((threadRepo.findFirstById(threadList.get(i)).getTitle()));
+//        }
+//        System.out.println("**** "+threadRepo + " ******");
+        if(threadList.size() !=0)
+            return threadList;
         else return null;
     }
 
@@ -43,8 +52,8 @@ public class ProblemController {
         Query query = new Query(Criteria.where("id").is(id));
         System.out.println("**** Post Details *****");
         System.out.println("Post Author : "+post.getAuthor());
-        System.out.println("Post Text : "+post.getText());
-        System.out.println("Post Date : "+post.getDate());
+        System.out.println("Post Text : "+post.getContent());
+
         //System.out.println(args.toString());
         mongoOperations.findAndModify(query,args,ProblemEntity.class);
         return new ResponseEntity<>(post, HttpStatus.CREATED);

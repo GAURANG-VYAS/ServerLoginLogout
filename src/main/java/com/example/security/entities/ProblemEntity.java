@@ -34,12 +34,8 @@ public class ProblemEntity {
     private String sampleInput;
     private String sampleOutput;
     private String explanation;
-    @DBRef
-    private ArrayList<PostEntity> posts;
     private String author;
-    private ArrayList<String> tags;
-    private String date;
-
+    private ArrayList<String> threads;
 
 
     public String getId() {
@@ -114,13 +110,14 @@ public class ProblemEntity {
         this.explanation = explanation;
     }
 
-    public ArrayList<PostEntity> getPosts() {
-        return posts;
+    public ArrayList<String> getThreads() {
+        return threads;
     }
 
-    public void setPosts(ArrayList<PostEntity> posts) {
-        this.posts = posts;
+    public void setThreads(ArrayList<String> threads) {
+        this.threads = threads;
     }
+
 
     public String getAuthor() {
         return author;
@@ -128,22 +125,6 @@ public class ProblemEntity {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public ArrayList<String> getTags() {
-        return tags;
-    }
-
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
 
